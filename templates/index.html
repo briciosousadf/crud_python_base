@@ -1,30 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>SUPER KORU STORE</title>
+<!--Este template corresponde à página que mostrar uma listagem de todos os produtos cadastrados-->
+{% extends 'base.html' %}
 
-    <!-- Já estão feitos os links com os arquivos bootstrap utilizados
-    no projeto e salvos na pasta static/css e static/js-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-    
-    <!-- exemplo de importação de uma folha de estilos direto de um link-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% block content %}
+<div class="container mt-3">
+  <h1>Lista de produtos</h1>
 
-</head>
-<body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="">Produtos</a>
-            <a class="navbar-brand" href="https://escolakoru.com.br">Conheça a Koru</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
-    </div>
-    <div class="container">
-        <!-- Dentro deste conteiner precisamos carregar o conteúdo de
-        cadastro.html ou de index.html-->
-    </div>
-</body>
-</html>
+  <a href="" class="btn btn-primary">Adicionar</a>
+
+  <hr />
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Descricao</th>
+        <th scope="col">Preço</th>
+        <th scope="col">Imagem</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- É preciso repetir a linha da tabela para cadaproduto existente no dicionário -->
+        {% for id, produto in produtos.items() %}
+      <tr>
+        <td>{{ id }}</td>
+        <td>{{ produto ['nome'] }}</td>
+        <td>{{ produto ['descricao'] }}</td>
+        <td>{{ produto ['preco'] }}</td>
+        <td><img src="{{url_for('static', filename='img/' + produto['imagem'])}}" alt="thumbnail" class="img-thumbnail" /></td>
+        <td><a href="">Editar</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
